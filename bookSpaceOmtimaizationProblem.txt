@@ -1,0 +1,182 @@
+//THIS CODE IS WRITTEN FOR CONSOLE JUST FOR ALGORITHM AND WE WILL INTEGRATE IT WITH WINDOWS FORM GUI IN NEXT ITERATION.
+ 
+class Cupboard
+{
+public:
+	Cupboard(int);
+	int capacity;
+	List <int> Category;
+	List <int> Books;
+	void AddBook(int,int);
+	void printCupboard();
+};
+
+Cupboard::Cupboard(int capacityOfCupboard)
+{
+	capacity = capacityOfCupboard;
+}
+
+void Cupboard::AddBook(int category, int noOfBooks)
+{
+	capacity = capacity - noOfBooks;
+	Category.push_back(category,noOfBooks);
+	Books.push_back(noOfBooks);
+}
+
+void Cupboard::printCupboard()
+{
+	console.writeline ("remaining capacity: " + capacity);
+	for (int i = 0; i < Books.size(); i++)
+	{
+		console.writeline << ("Catagory " + Category[i] + " book " + Books[i]);
+	}
+}
+
+
+int main() {
+	int noOfCupboards, noOfCategories , capacityOfCupboard;
+	console.writeline ("Enter no of Cupboards:");
+	console.read (noOfCupboards);
+	console.writeline ("Enter capacity of Cupboard:");
+	console.read (capacityOfCupboard);
+	console.writeline ("Enter the No of catagories:");
+	console.read (noOfCategories);
+	List<int> books = new List<int>();
+	List<Cupboard> cupboards = new List<Cupboard>();
+	for (int i = 1; i <= noOfCupboards; i++)
+	{
+		cupboards.push_back(Cupboard(capacityOfCupboard));
+	}
+	for (int i = 1; i <= capacityOfCupboard; i++)
+	{
+		console.writeline ("Enter books of catagory " + i + " :");
+		int categoryInput;
+		console.read (categoryInput);
+		books.push_back(categoryInput);
+	}
+
+	Books.toArray(); //converting List into to sort 
+
+	public static int[] mergeSort(int[] Books)
+        {
+            int[] left;
+            int[] right;
+            int[] result = new int[array.Length];  
+
+            if (array.Length <= 1)
+                return array;              
+
+            int midPoint = array.Length / 2;  
+
+            left = new int[midPoint];
+
+            if (array.Length % 2 == 0)
+                right = new int[midPoint];  
+            else
+                right = new int[midPoint + 1];  
+            for (int i = 0; i < midPoint; i++)
+                left[i] = array[i];     
+            int x = 0;
+            midpont
+            for (int i = midPoint; i < array.Length; i++)
+            {
+                right[x] = array[i];
+                x++;
+            }  
+            left = mergeSort(left);
+            right = mergeSort(right);
+            result = merge(left, right);  
+            return result;
+        }
+        public static int[] merge(int[] left, int[] right)
+        {
+            int resultLength = right.Length + left.Length;
+            int[] result = new int[resultLength];
+            int indexLeft = 0, indexRight = 0, indexResult = 0;  
+            while (indexLeft < left.Length || indexRight < right.Length)
+            {
+                if (indexLeft < left.Length && indexRight < right.Length)  
+                {  
+                    if (left[indexLeft] <= right[indexRight])
+                    {
+                        result[indexResult] = left[indexLeft];
+                        indexLeft++;
+                        indexResult++;
+                    }
+                    else
+                    {
+                        result[indexResult] = right[indexRight];
+                        indexRight++;
+                        indexResult++;
+                    }
+                }
+                else if (indexLeft < left.Length)
+                {
+                    result[indexResult] = left[indexLeft];
+                    indexLeft++;
+                    indexResult++;
+                }
+                else if (indexRight < right.Length)
+                {
+                    result[indexResult] = right[indexRight];
+                    indexRight++;
+                    indexResult++;
+                }  
+            }
+            return result;
+        }
+    }
+	
+Book.toList(); //again converting array into list after sorting
+
+	int i=0, j=0;
+	while (i<books.size() && j < cupboards.size())
+	{
+		if (books[i] <= cupboards[j].capacity)
+		{
+			cupboards[j].AddBook(i, books[i]);
+			if (cupboards[j].capacity == 0)
+			{
+				j++;
+			}
+			i++;
+		}
+		
+		else	//(books[i] >= cupboards[j].capacity);
+			
+		{
+			if (cupboards[j].Category.size() == 0)
+			{
+				int remaingBooks = books[i] - cupboards[j].capacity;
+				cupboards[j].AddBook(i, cupboards[j].capacity);
+				j++;
+				while (remaingBooks > 0 && j < cupboards.size())
+				{
+					int newRemainingBooks = remaingBooks - cupboards[j].capacity;
+					if (newRemainingBooks < 0)
+					{
+						cupboards[j].AddBook(i, remaingBooks);
+						j++;
+						remaingBooks = 0;
+					}
+					else
+					{
+						int newRemainingBooksLeft = remaingBooks - cupboards[j].capacity;
+						cupboards[j].AddBook(i, remaingBooks - newRemainingBooksLeft);
+						j++;
+						remaingBooks = newRemainingBooksLeft;
+					}
+				}
+				i++;
+			}
+			else
+			{
+				j++;
+			}
+		}
+	}
+	for (i = 0; i < cupboards.size(); i++)
+	{
+		cupboards[i].printCupboard();
+	}
+}
